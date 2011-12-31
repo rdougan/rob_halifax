@@ -16,7 +16,7 @@ For local development, you can simply set the environment variables in your `.ba
 
 Then fire up the Rails server and it will give your a JSON response:
 
-```json
+```javascript
 {
     "accounts": [
         {
