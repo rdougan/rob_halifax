@@ -1,3 +1,4 @@
+# encoding: utf-8
 class HalifaxScraper < Scraper
     def accounts
         # check if all ENV variables are set
