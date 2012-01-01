@@ -30,6 +30,7 @@ class ScraperController < ApplicationController
             }
         end
     rescue InvalidLoginError => e
+    rescue NotAuthorizedError => e
         respond_to do |format|
             format.html {
                 render :json => {

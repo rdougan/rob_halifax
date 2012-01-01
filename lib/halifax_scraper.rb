@@ -61,8 +61,12 @@ class HalifaxScraper < Scraper
             figures = []
             page.root.search('.accountFigures span').each do |figure|
                 figure = figure.inner_text.split(': ')
+                name = figure[0]
+                name = "Available" if (name == "Money available" || name == "Available credit")
+                name = "Limit" if (name == "Credit limit")
+
                 figures << {
-                    :name => (figure[0] == "Money available" || figure[0] == "Available credit") ? "Available" : figure[0],
+                    :name => name,
                     :value => self.format_number(figure[1])
                 }
             end
