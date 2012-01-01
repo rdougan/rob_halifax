@@ -1,8 +1,10 @@
 ## rob_halifax
 
-This is a simple application written using Rails 3 which will scrape the [Halifax Online Banking](https://www.halifax-online.co.uk/personal/logon/login.jsp) website and return your account details and latest transactions in a JSON format. It uses a mobile user agent to keep loading times down (as they finally have a mobile site).
+This is a simple application written using Rails 3 which will scrape the [Halifax Online Banking](https://www.halifax-online.co.uk/personal/logon/login.jsp) and [Northern Bank](http://northernbank.co.uk/) websites and return your account details and latest transactions in a JSON format. It uses a mobile user agent to keep loading times down (as they both *finally* have a mobile site).
 
 It uses [Mechanize](http://mechanize.rubyforge.org/) and [Nokogiri](http://nokogiri.org/), both of which are fantastic.
+
+**Please, please, please don't be silly and put this online somewhere with your details without using an extra authentication layer.**
 
 ### Setup
 
