@@ -68,7 +68,8 @@ class HalifaxController < ApplicationController
             page.root.search('.accountFigures span').each do |figure|
                 figure = figure.inner_text.split(': ')
                 figures << {
-                    "#{figure[0]}" => self.format_number(figure[1])
+                    :name => figure[0],
+                    :value => self.format_number(figure[1])
                 }
             end
 
