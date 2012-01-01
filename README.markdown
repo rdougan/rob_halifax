@@ -14,6 +14,8 @@ For local development, you can simply set the environment variables in your `.ba
 	export HALIFAX_PASSWORD="mypassword"
 	export HALIFAX_SECRET="mylowercasesecret"
 
+For simple authentication, I also check for a `UUID` environment variable. It can be comma seperated.
+
 Then fire up the Rails server and it will give your a JSON response:
 
 ```javascript
