@@ -1,3 +1,3 @@
 Halifax::Application.routes.draw do
-    root :to => "halifax#login"
+    root :to => "scraper#login"
 end

@@ -1,12 +1,5 @@
-# encoding: utf-8
-
-class InvalidLoginError < StandardError
-end
-
-require 'open-uri'
-
-class HalifaxController < ApplicationController
-    def login
+class HalifaxScraper < Scraper
+    def accounts
         # check if all ENV variables are set
         raise InvalidLoginError, "No HALIFAX_USERNAME environment variable set" if !ENV['HALIFAX_USERNAME']
         raise InvalidLoginError, "No HALIFAX_PASSWORD environment variable set" if !ENV['HALIFAX_PASSWORD']
@@ -52,6 +45,7 @@ class HalifaxController < ApplicationController
         page = a.current_page
 
         accounts = []
+        
         page.root.search('.account a').each do |account|
             hash = {
                 :name => account.search('strong').inner_text,
@@ -68,7 +62,7 @@ class HalifaxController < ApplicationController
             page.root.search('.accountFigures span').each do |figure|
                 figure = figure.inner_text.split(': ')
                 figures << {
-                    :name => figure[0],
+                    :name => (figure[0] == "Money available" || figure[0] == "Available credit") ? "Available" : figure[0],
                     :value => self.format_number(figure[1])
                 }
             end
@@ -95,41 +89,6 @@ class HalifaxController < ApplicationController
             accounts << hash
         end
 
-        # respond using JSON
-        respond_to do |format|
-            format.html {
-                render :json => {
-                    :success => true,
-                    :accounts => accounts
-                }
-            }
-        end
-    rescue InvalidLoginError => e
-        respond_to do |format|
-            format.html {
-                render :json => {
-                    :success => false,
-                    :message => "#{e.message}"
-                }
-            }
-        end
-    rescue
-        respond_to do |format|
-            format.html {
-                render :json => {
-                    :success => false,
-                    :message => "Unknown error"
-                }
-            }
-        end
-    end
-
-    # simple method to remove unnessecary charcters from a stupid halifax string and convert it to a float
-    def format_number(number)
-        if number
-            number = number.gsub(/\s+/, '').gsub(',', '').gsub('£', '').gsub('+', '').to_f
-        end
-
-        number
+        accounts
     end
 end
